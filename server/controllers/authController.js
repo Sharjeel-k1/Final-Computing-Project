@@ -271,3 +271,36 @@ export const verifyEmail = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
+// Admin login handler
+export const adminLogin = [
+  body('username').notEmpty().withMessage('Username is required'),
+  body('password').notEmpty().withMessage('Password is required'),
+
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { username, password } = req.body;
+    try {
+      // Find admin by username
+      const result = await pool.query('SELECT * FROM admins WHERE username = $1', [username]);
+      const admin = result.rows[0];
+      if (!admin || !(await bcrypt.compare(password, admin.password))) {
+        return res.status(401).json({ error: 'Invalid credentials' });
+      }
+      // Issue JWT for admin
+      const token = jwt.sign(
+        { adminId: admin.id, name: admin.name, role: 'admin' },
+        process.env.JWT_SECRET,
+        { expiresIn: '1d' }
+      );
+      res.json({ token });
+    } catch (err) {
+      console.error('Error logging in as admin:', err.message);
+      res.status(500).json({ error: 'Admin login failed', details: err.message });
+    }
+  },
+];

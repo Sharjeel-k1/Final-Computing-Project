@@ -1,16 +1,34 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function CreateOrderModal({ closeModal }) {
+export default function CreateOrder() {
   const [carModel, setCarModel] = useState('');
   const [issue, setIssue] = useState('');
-  const [numberPlate, setNumberPlate] = useState(''); // State for manually entering number_plate
+  const [vehicles, setVehicles] = useState([]);
+  const [selectedVehicle, setSelectedVehicle] = useState('');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchVehicles = async () => {
+      const token = localStorage.getItem('token');
+      const res = await fetch('http://localhost:5000/api/vehicles', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setVehicles(data);
+      } else {
+        alert(data.error || 'Failed to fetch vehicles');
+      }
+    };
+
+    fetchVehicles();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
-    const requestBody = { car_model: carModel, issue, number_plate: numberPlate }; // Include number_plate
+    const requestBody = { car_model: carModel, issue, vehicle_id: selectedVehicle }; // Include vehicle_id
 
     try {
       const res = await fetch('http://localhost:5000/api/orders', {
@@ -25,7 +43,6 @@ export default function CreateOrderModal({ closeModal }) {
 
       if (res.ok) {
         alert('Order created successfully');
-        closeModal();
         navigate('/orders'); // Redirect to the orders page
       } else {
         console.error('Error:', data);
@@ -38,26 +55,28 @@ export default function CreateOrderModal({ closeModal }) {
   };
 
   return (
-    <div className="modal">
-      <div className="modal-content create-order-modal">
-        <span className="close-icon" onClick={closeModal}>
-          &times;
-        </span>
-        <h2 className="text-center text-3xl font-bold mb-6">Create Order</h2>
+    <div className="min-h-screen bg-gradient-to-br from-blue-900 to-blue-600 text-white flex items-center justify-center">
+      <div className="bg-white text-black p-8 rounded shadow-md w-full max-w-md">
+        <h1 className="text-3xl font-bold mb-6 text-center">Create Order</h1>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label htmlFor="numberPlate" className="block text-sm font-medium mb-2">
-              Enter Number Plate
+            <label htmlFor="vehicle" className="block text-sm font-medium mb-2">
+              Select Vehicle (Number Plate)
             </label>
-            <input
-              type="text"
-              id="numberPlate"
-              value={numberPlate}
-              onChange={(e) => setNumberPlate(e.target.value)}
+            <select
+              id="vehicle"
+              value={selectedVehicle}
+              onChange={(e) => setSelectedVehicle(e.target.value)}
               required
               className="w-full p-2 border border-gray-300 rounded"
-              placeholder="Enter Number Plate"
-            />
+            >
+              <option value="">Select a vehicle</option>
+              {vehicles.map((vehicle) => (
+                <option key={vehicle.id} value={vehicle.id}>
+                  {vehicle.license_plate} - {vehicle.make} {vehicle.model} ({vehicle.year})
+                </option>
+              ))}
+            </select>
           </div>
           <div className="mb-4">
             <label htmlFor="carModel" className="block text-sm font-medium mb-2">
@@ -70,7 +89,6 @@ export default function CreateOrderModal({ closeModal }) {
               onChange={(e) => setCarModel(e.target.value)}
               required
               className="w-full p-2 border border-gray-300 rounded"
-              placeholder="Enter Car Model"
             />
           </div>
           <div className="mb-4">
@@ -83,7 +101,6 @@ export default function CreateOrderModal({ closeModal }) {
               onChange={(e) => setIssue(e.target.value)}
               required
               className="w-full p-2 border border-gray-300 rounded"
-              placeholder="Describe the issue"
             ></textarea>
           </div>
           <div className="mb-4 text-sm text-black text-center font-semibold bg-yellow-100 rounded p-2">
@@ -95,3 +112,4 @@ export default function CreateOrderModal({ closeModal }) {
     </div>
   );
 }
+

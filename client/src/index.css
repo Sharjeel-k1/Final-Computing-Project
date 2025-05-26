@@ -1,323 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Hubot+Sans:ital,wght@0,200..900;1,200..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+
+html {
+  overflow-x: hidden;
+}
+
+
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: "Oswald", sans-serif;
+  font-weight: 500;
+  background-color: #000;
+  color: #fff;
   margin: 0;
   padding: 0;
-  background-color: #f8f9fa;
-  color: #333;
+  overflow-x: hidden;
 }
 
 .navbar {
-  background-color: #1E40AF;
-  color: white;
-  padding: 1rem 2rem;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: transparent;
+  color: #fff;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1rem 2rem;
+  z-index: 10;
+  margin-top: 8px;
 }
 
+.underline {
+  width: calc(100% - 4rem);   /* matches navbar padding: 2rem left + 2rem right */
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.2);
+  margin: 0 auto;
+}
+
+
+
 .navbar h1 {
-  font-size: 1.8rem;
-  font-weight: bold;
+  font-family: 'Hubot Sans', sans-serif;
+  font-weight: 700;
+  font-size: 3rem;
+  letter-spacing: 2px;
 }
 
 .navbar-center {
   display: flex;
   gap: 1.5rem;
-  justify-content: flex-start; /* Align links to the left */
-  margin-left: 2rem; /* Adjust the alignment to match the logo */
 }
 
 .navbar-link {
-  color: white;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-left: 1.5rem;
+  color: #fff;
   text-decoration: none;
-  padding: 0.5rem 1rem;
-  background-color: #3B82F6;
-  border-radius: 0.375rem;
-  font-size: 1rem;
-  font-weight: 500;
-  transition: background-color 0.3s ease;
-  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.3s;
 }
 
 .navbar-link:hover {
-  background-color: #2563EB;
+  border-bottom: 2px solid #fff;
 }
 
-.navbar a, .navbar button {
-  color: white;
-  text-decoration: none;
-  margin-left: 1rem;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-.navbar a:hover, .navbar button:hover {
-  text-decoration: underline;
-}
-
-.hero {
-  background: linear-gradient(to right, #1E40AF, #3B82F6);
-  color: white;
+.home-header {
+  background: url('./assets/garage.jpg') center center/cover no-repeat;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  padding: 4rem 2rem;
+  position: relative;
 }
 
-.hero h1 {
-  font-size: 3rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
+.home-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  z-index: 1;
+}
+
+.home-header > * {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-title {
+  font-size: 4rem;
+  line-height: 1.2;
+  max-width: 90%;
+  margin: 0 auto;
 }
 
 .hero p {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  margin-top: 1rem;
 }
 
-.hero button {
-  background-color: #F59E0B;
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 0.375rem;
+.button-primary {
+  background: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+  padding: 12px 32px;
   font-size: 1rem;
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: 1px;
   cursor: pointer;
+  transition: all 0.3s;
 }
 
-.hero button:hover {
-  background-color: #D97706;
+.button-primary:hover {
+  background: #fff;
+  color: #000;
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 3rem 2rem;
+  background-image: url('./assets/carlogo.webp');
+  background-size: contain;
 }
 
 .card {
-  background-color: white;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
-  color: black; /* Set text color to black */
+  background-color: transparent;
+  color: #fff;
+  border: 2px solid #222;
+  padding: 3rem 2rem;
+  text-align: center;
+  border-radius: 0;
 }
 
-.card h2 {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-}
-
-.card p {
-  font-size: 1rem;
-  margin-bottom: 1rem;
-}
-
-.button-primary {
-  background-color: #1E40AF;
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 0.375rem;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.button-primary:hover {
-  background-color: #2563EB;
+.card:hover {
+  border-color: #fff;
 }
 
 .footer {
-  background-color: #1E40AF;
-  color: white;
+  background-color: #000;
+  color: #fff;
   text-align: center;
-  padding: 1rem;
-  margin-top: 2rem;
-}
-
-/* Modal styles */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modal-content {
-  background: linear-gradient(to right, #1E40AF, #3B82F6);
-  color: white;
-  padding: 2rem;
-  border-radius: 0.5rem;
-  width: 90%;
-  max-width: 400px;
-  position: relative;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.modal-content h2 {
-  color: white;
-}
-
-.modal-content input {
-  background-color: white;
-  color: black;
-  width: 100%; /* Ensures input fields take full width */
-  padding: 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 0.375rem;
-  font-size: 1rem;
-}
-
-.modal-content form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem; /* Adds spacing between input fields */
-}
-
-.modal-content button {
-  width: 100%; /* Ensures the button takes full width */
-  padding: 0.75rem;
-  font-size: 1rem;
-  border-radius: 0.375rem;
-  background-color: #1E40AF;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-.modal-content button:hover {
-  background-color: #3B82F6;
-}
-
-.close-button {
-   /* Position the button 10px from the top */
-  top: 10px; /* Position the button 10px from the top */
-  right: 10px; /* Position the button 10px from the right */
-  background: none; /* Remove any background */
-  border: none; /* Remove any border */
-  font-size: 1.5rem; /* Set the font size for the X */
-  color: white; /* Ensure the button is visible on the modal background */
-  cursor: pointer; /* Change the cursor to a pointer */
-  /* Ensure the button is above other modal content */
-  outline: none; /* Remove the focus outline */
-}
-
-.close-button:hover {
-  color: red; /* Highlight the button when hovered */
-}
-
-.close-icon {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 1.5rem;
-  color: white;
-  cursor: pointer;
-}
-
-.close-icon:hover {
-  color: red;
-}
-
-/* Map container styles */
-.map-container {
-  margin: 2rem auto;
-  max-width: 1200px;
-  padding: 1rem;
-  text-align: center;
-  position: relative;
-}
-
-.map-container h2 {
-  margin-bottom: 1rem;
-  color: white; /* Make the "Find Us" text white */
-  font-weight: bold;
-}
-
-.map-wrapper {
-  position: relative;
-  border: 2px solid #1E40AF;
-  border-radius: 0.5rem;
-  overflow: hidden;
-}
-
-.map-pointer {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10;
-}
-
-.pointer-icon {
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  animation: bounce 1.5s infinite;
-}
-
-@keyframes bounce {
-  0%, 100% {
-    transform: translate(-50%, -50%) scale(1);
-  }
-  50% {
-    transform: translate(-50%, -60%) scale(1.1);
-  }
-}
-
-/* Gradient background for pages */
-.min-h-screen {
-  min-height: 100vh;
-  margin: 0; /* Remove any default margins */
-  padding: 0; /* Remove any default padding */
-  overflow: hidden; /* Prevent scrolling caused by extra space */
-}
-
-.gradient-bg {
-  background: linear-gradient(to right, #1E40AF, #3B82F6);
-  color: white;
-  padding: 2rem;
-  text-align: center;
-}
-
-/* Full-screen background styles */
-.bg-cover {
-  background-size: cover; /* Ensure the image covers the entire screen */
-  background-repeat: no-repeat; /* Prevent the image from repeating */
-  background-position: center; /* Center the image */
-}
-
-.bg-center {
-  background-position: center; /* Center the image */
-}
-
-/* Gradient background for pages */
-.bg-gradient-to-br {
-  background: linear-gradient(to bottom right, #0072c6, #005b9f); /* Updated blue gradient */
-  color: white;
-  padding: 2rem;
-  text-align: center;
-}
-
-/* Forgot Password Modal Styles */
-.forgot-password-modal {
-  background-color: white;
-  padding: 2rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
-  margin: 0 auto;
-  position: relative;
+  padding: 2rem 0;
+  font-size: 0.9rem;
 }
 
 .modal {
@@ -330,16 +167,33 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1000;
 }
 
 .modal-content {
-  background-color: white;
+  background-color: #111;
+  color: #fff;
+  border: 2px solid #333;
   padding: 2rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   max-width: 500px;
   width: 100%;
   position: relative;
+}
+
+.modal-content button {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  background: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.modal-content button:hover {
+  background: #fff;
+  color: #000;
 }
 
 .close-icon {
@@ -347,10 +201,354 @@ body {
   top: 10px;
   right: 10px;
   font-size: 1.5rem;
-  color: black;
+  color: #fff;
   cursor: pointer;
 }
 
 .close-icon:hover {
   color: red;
+}
+
+
+
+.register-section {
+  width: 100%;
+  background-color: black;
+  color: white;
+  padding: 5rem 2rem;
+  text-align: center;
+}
+
+.register-section form {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #111;
+  border: 1px solid #333;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(255,255,255,0.05);
+}
+
+.register-section input {
+  padding: 1rem;
+  font-size: 1rem;
+  border: 1px solid #555;
+  border-radius: 6px;
+  background-color: #000;
+  color: white;
+}
+
+.register-title {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+
+
+/* NEW: Backdrop for side panel */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 999;
+}
+
+/* NEW: Login side drawer */
+.login-side-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 350px;
+  background-color: #111;
+  color: white;
+  padding: 2rem;
+  box-shadow: -2px 0 5px rgba(0,0,0,0.5);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+/* Existing modal close button */
+.close-icon {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+}
+
+.login-side-panel form input {
+  background-color: #000;
+  border: 1px solid #444;
+  padding: 0.75rem;
+  color: white;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.login-side-panel button {
+  background-color: white;
+  color: black;
+  border: none;
+  padding: 0.75rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.login-side-panel button:hover {
+  background-color: #ccc;
+}
+
+
+/* LOGIN SIDE PANEL BUTTON */
+.login-side-panel button.button-primary {
+  width: 100%;
+  background-color: white;
+  color: black;
+  border: none;
+  padding: 0.75rem;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.login-side-panel button.button-primary:hover {
+  background-color: #ccc;
+}
+
+/* FORGOT PASSWORD LINK STYLE */
+.login-side-panel .login-link {
+  display: inline-block;
+  margin-top: 1rem;
+  color: #3B82F6; /* bright blue */
+  font-weight: normal;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.login-side-panel .login-link:hover {
+  text-decoration: underline;
+}
+.map-title {
+
+  margin-left: 12px;
+  font-size: 30px;
+}
+
+
+/* BACKDROP */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* ORDER MODAL BOX */
+.create-order-modal {
+  background-color: #111;
+  color: white;
+  width: 90%;
+  max-width: 500px;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.8);
+  position: relative;
+}
+
+/* CLOSE ICON */
+.create-order-modal .close-icon {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+}
+
+/* FORM INPUTS */
+.create-order-modal input,
+.create-order-modal textarea {
+  width: 100%;
+  padding: 0.75rem 1.2rem;
+  background-color: #000;
+  color: white;
+  border: 1px solid #444;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+/* PLACEHOLDER COLOR */
+.create-order-modal input::placeholder,
+.create-order-modal textarea::placeholder {
+  color: #888;
+}
+
+/* BUTTON */
+.create-order-modal button {
+  background-color: white;
+  color: black;
+  border: none;
+  padding: 0.75rem;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+  text-transform: uppercase;
+  border-radius: 5px;
+}
+
+.create-order-modal button:hover {
+  background-color: #ccc;
+}
+
+
+/* Modal content box */
+.forgot-password-modal {
+  background-color: #111; /* dark theme */
+  color: white;
+  padding: 30px 25px;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  border: 1px solid #333;
+  position: relative;
+}
+
+/* Close icon */
+.forgot-password-modal .close-icon {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Input styling */
+.forgot-password-modal input {
+  width: 100%;
+  padding: 10px 12px; /* 👈 this adds the perfect gap for placeholder text */
+  margin-bottom: 15px;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background-color: #222;
+  color: white;
+}
+
+/* Button styling */
+.forgot-password-modal .button-primary {
+  width: 100%;
+  background-color: #000;
+  color: white;
+  padding: 12px 0;
+  border: 1px solid white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  transition: background-color 0.3s ease;
+}
+
+.forgot-password-modal .button-primary:hover {
+  background-color: #222;
+}
+
+.contact-map-section {
+  background-color: #000;
+  color: white;
+  padding: 4rem 2rem;
+  text-align: center;
+  border-top: 1px solid #222;
+  margin-top: 3rem;
+}
+
+.contact-info {
+  margin-bottom: 2rem;
+}
+
+.contact-info h3 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #333;
+  display: inline-block;
+  padding-bottom: 0.5rem;
+}
+
+.contact-info p {
+  margin: 0.3rem 0;
+  font-size: 1rem;
+}
+/* Map Styling*/
+
+.contact-map-section {
+  background-color: #000;
+  color: white;
+  padding: 4rem 2rem;
+  text-align: center;
+  border-top: 1px solid #222;
+  margin-top: 3rem;
+  box-shadow: 0 -10px 20px rgba(255, 255, 255, 0.05);
+}
+
+.map-title {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+
+.contact-info {
+  margin-bottom: 2rem;
+  font-size: 1rem;
+  color: #ccc;
+}
+
+.contact-info p {
+  margin: 4px 0;
+}
+
+.map-wrapper iframe {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.map-link-button {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  background-color: #fff;
+  color: #000;
+  font-weight: bold;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.map-link-button:hover {
+  background-color: #ccc;
+  transform: scale(1.03);
+}
+
+.button-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }

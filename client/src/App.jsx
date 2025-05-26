@@ -1,56 +1,90 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Orders from './pages/Orders';
 import AdminDashboard from './pages/AdminDashboard';
+import AdminLogin from './pages/AdminLogin';
+import VerifyEmailPage from './pages/VerifyEmailPage';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import LoginModal from './components/LoginModal';
-import RegisterModal from './components/RegisterModal';
 import CreateOrderModal from './components/CreateOrderModal';
-import VerifyEmailModal from './components/VerifyEmailModal';
+import LoginOrRegisterModal from './components/LoginOrRegisterModal';
 
 export default function App() {
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
-  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
-  const [isCreateOrderOpen, setIsCreateOrderOpen] = useState(false);
-  const [successMessage, setSuccessMessage] = useState('');
+    const [isLoginOpen, setIsLoginOpen] = useState(false);
+    const [isCreateOrderOpen, setIsCreateOrderOpen] = useState(false);
+    const [successMessage, setSuccessMessage] = useState('');
+    const [showLoginOrRegister, setShowLoginOrRegister] = useState(false);
 
-  const openLogin = (message = '') => {
-    setSuccessMessage(message);
-    setIsLoginOpen(true);
-  };
-  const closeLogin = () => setIsLoginOpen(false);
+    const registerRef = useRef(null);
 
-  const openRegister = () => setIsRegisterOpen(true);
-  const closeRegister = () => setIsRegisterOpen(false);
+    const openLogin = (message = '') => {
+        setSuccessMessage(message);
+        setIsLoginOpen(true);
+    };
+    const closeLogin = () => setIsLoginOpen(false);
 
-  const openCreateOrder = () => setIsCreateOrderOpen(true);
-  const closeCreateOrder = () => setIsCreateOrderOpen(false);
+    const openCreateOrder = () => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            setShowLoginOrRegister(true);
+        } else {
+            setIsCreateOrderOpen(true);
+        }
+    };
+    const closeCreateOrder = () => setIsCreateOrderOpen(false);
 
-  return (
-    <BrowserRouter>
-      <Navbar
-        openLogin={openLogin}
-        openRegister={openRegister}
-        openCreateOrder={openCreateOrder}
-      />
-      <Routes>
-        <Route path="/" element={<Home openCreateOrder={openCreateOrder} />} />
-        <Route path="/orders" element={<Orders />} />
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/verify-email/:token" element={<VerifyEmailModal />} />
-      </Routes>
-      <Footer />
-      {isLoginOpen && (
-        <LoginModal closeModal={closeLogin} successMessage={successMessage} />
-      )}
-      {isRegisterOpen && (
-        <RegisterModal closeModal={closeRegister} openLoginModal={openLogin} />
-      )}
-      {isCreateOrderOpen && (
-        <CreateOrderModal closeModal={closeCreateOrder} />
-      )}
-    </BrowserRouter>
-  );
+    const scrollToRegister = () => {
+        registerRef.current?.scrollIntoView({ behavior: 'smooth' });
+    };
+
+    const isAdminRoute = location.pathname.startsWith('/admin');
+    const [loginMessage, setLoginMessage] = useState('');
+
+
+    return (
+        <BrowserRouter>
+            {!isAdminRoute && (
+                <Navbar
+                openLogin={openLogin}
+                scrollToRegister={scrollToRegister}
+                openCreateOrder={openCreateOrder}
+            />
+            )}
+            {showLoginOrRegister && (
+                <LoginOrRegisterModal
+                    onClose={(action) => {
+                        setShowLoginOrRegister(false);
+                        if (action === 'login') openLogin();
+                        if (action === 'register') scrollToRegister();
+                    }}
+                />
+            )}
+            <Routes>
+                <Route
+                    path="/"
+                    element={
+                        <Home
+                            openCreateOrder={openCreateOrder}
+                            registerRef={registerRef}
+                            openLogin={openLogin}
+                            setLoginMessage={setLoginMessage}
+                        />
+                    }
+                />
+                <Route path="/orders" element={<Orders />} />
+                <Route path="/admin" element={<AdminDashboard />} />
+                <Route path="/admin-login" element={<AdminLogin />} />
+                <Route path="/verify-email/:token" element={<VerifyEmailPage />} />
+            </Routes>
+            {!isAdminRoute && <Footer />}
+            {isLoginOpen && (
+                <LoginModal closeModal={closeLogin} successMessage={successMessage} />
+            )}
+            {isCreateOrderOpen && (
+                <CreateOrderModal closeModal={closeCreateOrder} />
+            )}
+        </BrowserRouter>
+    );
 }
