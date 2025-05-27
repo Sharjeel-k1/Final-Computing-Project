@@ -30,8 +30,13 @@ Final-Computing-Project-main/
    cd server
    npm install
    ```
-2. Configure your database in `server/config/db.js` and ensure PostgreSQL is running.
-3. Start the backend:
+2. (Optional) Seed test data for the backend (if a script exists):
+   ```
+   npm run seed
+   ```
+   *(Ensure you have a `seed` script in your `server/package.json` and a corresponding seed file, e.g., `server/seed.js`.)*
+3. Configure your database in `server/config/db.js` and ensure PostgreSQL is running.
+4. Start the backend:
    ```
    npm start
    ```
@@ -42,7 +47,12 @@ Final-Computing-Project-main/
    cd client
    npm install
    ```
-2. Start the frontend:
+2. (Optional) Seed test data for the frontend (if a script exists):
+   ```
+   npm run seed
+   ```
+   *(Ensure you have a `seed` script in your `client/package.json` and a corresponding seed file, if applicable.)*
+3. Start the frontend:
    ```
    npm run dev
    ```
@@ -50,6 +60,11 @@ Final-Computing-Project-main/
 
 ### Database Setup
 - Run the SQL in `database/schema.sql` to create the necessary tables.
+- To seed test data, run the SQL in `database/seed.sql`:
+  ```
+  psql -U your_db_user -d your_db_name -f database/seed.sql
+  ```
+  Replace `your_db_user` and `your_db_name` with your PostgreSQL username and database name.
 
 ## Usage
 - Visit `http://localhost:3000` for the frontend.
