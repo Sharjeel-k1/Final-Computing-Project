@@ -24,18 +24,35 @@ Final-Computing-Project-main/
 - Node.js (v16+ recommended)
 - PostgreSQL
 
+### Database Setup
+1. Create a PostgreSQL database and user (replace values as needed):
+   ```sql
+   CREATE DATABASE workshop;
+   CREATE USER postgres WITH PASSWORD 'db123';
+   GRANT ALL PRIVILEGES ON DATABASE workshop TO postgres;
+   ```
+2. Run the SQL in `database/schema.sql` to create the necessary tables:
+   ```sh
+   psql -U postgres -d workshop -f database/schema.sql
+   ```
+
 ### Backend Setup
 1. Navigate to the server folder:
    ```
    cd server
    npm install
    ```
-2. (Optional) Seed test data for the backend (if a script exists):
-   ```
-   npm run seed
-   ```
-   *(Ensure you have a `seed` script in your `server/package.json` and a corresponding seed file, e.g., `server/seed.js`.)*
-3. Configure your database in `server/config/db.js` and ensure PostgreSQL is running.
+2. Configure your environment variables:
+   - Create a `.env` file in the `server/` directory with the following content (update values as needed):
+     ```env
+     PORT=5000
+     DATABASE_URL=postgresql://postgres:db123@localhost:5432/workshop
+     JWT_SECRET=supersecretkey
+     EMAIL_USER=salmanworkshop16@gmail.com
+     EMAIL_PASS=wrrl gyoy ujdl omqm
+     ```
+   - Make sure `DATABASE_URL` matches your PostgreSQL setup.
+3. Ensure PostgreSQL is running and the database is accessible.
 4. Start the backend:
    ```
    npm start
@@ -47,24 +64,11 @@ Final-Computing-Project-main/
    cd client
    npm install
    ```
-2. (Optional) Seed test data for the frontend (if a script exists):
-   ```
-   npm run seed
-   ```
-   *(Ensure you have a `seed` script in your `client/package.json` and a corresponding seed file, if applicable.)*
-3. Start the frontend:
+2. Start the frontend:
    ```
    npm run dev
    ```
    (or use `npm start` if using Create React App)
-
-### Database Setup
-- Run the SQL in `database/schema.sql` to create the necessary tables.
-- To seed test data, run the SQL in `database/seed.sql`:
-  ```
-  psql -U your_db_user -d your_db_name -f database/seed.sql
-  ```
-  Replace `your_db_user` and `your_db_name` with your PostgreSQL username and database name.
 
 ## Usage
 - Visit `http://localhost:3000` for the frontend.
