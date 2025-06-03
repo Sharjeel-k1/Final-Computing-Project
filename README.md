@@ -58,6 +58,35 @@ Final-Computing-Project-main/
    npm start
    ```
 
+### Seeding Test Data
+To add example users and orders for testing, run the seed script:
+
+```
+powershell
+cd server
+node .\seedTestData.js
+```
+
+- This will insert two users (Alice Smith and Bob Jones, both with password `password`) and two example orders.
+- Passwords are securely hashed using bcrypt in the script.
+- You can safely run this script multiple times; it will clear previous test users/orders.
+
+### Seeding Admin User
+To add a default admin user for testing, run the following script:
+
+```
+powershell
+cd server
+node .\createAdmin.js
+```
+
+- This will create an admin user with:
+  - Username: Admin1
+  - Password: Admin12
+  - Name: Admin User
+  - Contact Number: 1234567890
+- You can safely run this script multiple times; it will not duplicate the admin if it already exists.
+
 ### Frontend Setup
 1. Navigate to the client folder:
    ```
